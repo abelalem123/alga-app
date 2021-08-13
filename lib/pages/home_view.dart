@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'conf_code.dart';
-import 'controller.dart';
+
 import 'package:get/get_utils/src/get_utils/get_utils.dart';
 import 'package:get/get.dart';
 import 'login_page.dart';

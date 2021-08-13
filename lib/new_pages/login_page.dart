@@ -1,13 +1,13 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:form/new_pages/temp.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 import 'package:string_validator/string_validator.dart';
 
-import 'home_page.dart';
-import 'ssample.dart';
+import 'package:form/pages/ssample.dart';
 import 'package:get/get.dart';
 
 class LoginPage extends StatefulWidget {
@@ -176,7 +176,7 @@ class _LoginPageState extends State<LoginPage> {
                         token = result.data?['login']['token'];
                         print(token);
 
-                        return Sample(
+                        return Temp(
                           token: token,
                         );
                       });

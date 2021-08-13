@@ -194,10 +194,24 @@ class BookingPage extends StatelessWidget {
                           runMutation({
                             'roomId': roomId,
                             'hotelId': hotelId,
-                            'checkin_time': DateFormat('yyyy-MM-dd – kk:mm')
-                                .format(bookingPageController.currentDatein!),
-                            'checkout_time': DateFormat('yyyy-MM-dd – kk:mm')
-                                .format(bookingPageController.currentDatein!)
+                            'checkin_time': DateFormat('EEE MMM dd yyyy ')
+                                    .format(
+                                        bookingPageController.currentDatein!) +
+                                bookingPageController.curentTimein!.hour
+                                    .toString() +
+                                ':' +
+                                bookingPageController.curentTimein!.minute
+                                    .toString() +
+                                ':00',
+                            'checkout_time':
+                                DateFormat('EEE MMM dd yyyy hh:mm:ss').format(
+                                        bookingPageController.currentDateout!) +
+                                    bookingPageController.currentTimeout!.hour
+                                        .toString() +
+                                    ':' +
+                                    bookingPageController.currentTimeout!.minute
+                                        .toString() +
+                                    ':00'
                           });
                         },
                         child: Text('Reserve'));
@@ -209,8 +223,13 @@ class BookingPage extends StatelessWidget {
             GetBuilder<BookingPageController>(builder: (_) {
               return Expanded(
                 flex: 1,
-                child: Text(DateFormat('yyyy-MM-dd – kk:mm')
-                    .format(bookingPageController.currentDatein!)),
+                // Wed Aug 11 2021 06:00:56
+                child: Text(DateFormat('EEE MMM dd yyyy ')
+                        .format(bookingPageController.currentDatein!) +
+                    bookingPageController.curentTimein!.hour.toString() +
+                    ':' +
+                    bookingPageController.curentTimein!.minute.toString() +
+                    ':00'),
               );
             }),
             // Expanded(

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:form/new_pages/login_page - Copy.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'pages/home_view.dart';
-import 'pages/authenitication_page.dart';
+import 'pages/floatingsearch bar.dart';
+import 'package:get/get.dart';
+
 import 'pages/ssample.dart';
 
 //import 'package:graphql_flutter/graphql_flutter.dart';
@@ -24,12 +27,30 @@ class MyApp extends StatelessWidget {
     return GraphQLProvider(
       client: client,
       child: CacheProvider(
-        child: MaterialApp(
-          title: 'Registration Form',
-          debugShowCheckedModeBanner: false,
-          home: HomeView(),
-        ),
+        child: GetMaterialApp(
+            title: 'Registration Form',
+            debugShowCheckedModeBanner: false,
+            home: LoginPage()),
       ),
+    );
+  }
+}
+
+class SearchBarclass extends StatelessWidget {
+  const SearchBarclass({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(children: [
+        Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+        ),
+        FloatingSearchbar()
+      ]),
     );
   }
 }

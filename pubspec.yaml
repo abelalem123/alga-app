@@ -32,6 +32,7 @@ dependencies:
   graphql_flutter: ^5.0.0
   flutter_verification_box: ^2.0.0
   flutter_cache_manager: ^3.1.2
+  material_floating_search_bar: ^0.3.4
   http: ^0.13.3
   string_validator: ^0.3.0
   shared_preferences: ^2.0.6
@@ -39,6 +40,8 @@ dependencies:
   gql_http_link: ^0.4.0
   flutter_rating_bar: ^4.0.0
   intl: ^0.17.0
+  floating_search_bar: ^0.3.0
+  circular_countdown_timer: ^0.2.0
   
 
 dev_dependencies:

@@ -3,6 +3,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_verification_box/verification_box.dart';
+import 'package:form/pages/ssample.dart';
+import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 class ConfirmCode extends StatelessWidget {
@@ -65,6 +67,9 @@ registration(code: \$registrationCode) {
                           cursorEndIndent: 10,
                           focusBorderColor: Colors.deepPurpleAccent,
                           onSubmitted: (value) {
+                            String token =
+                                result!.data?['registration']['token'];
+                            Get.to(Sample(token: token));
                             runMutation({'registrationCode': value.toString()});
                           },
                         ),

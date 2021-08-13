@@ -1,14 +1,15 @@
+import 'dart:async';
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:form/new_pages/temp.dart';
 import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 import 'package:string_validator/string_validator.dart';
 
-import 'home_page.dart';
-import 'ssample.dart';
-import 'package:get/get.dart';
+import 'package:form/pages/ssample.dart';
+import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -22,6 +23,15 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   var email = '';
+  // getItemAndNavigate(BuildContext context) {
+  //   Navigator.push(
+  //       context,
+  //       MaterialPageRoute(
+  //           builder: (context) => AuthPage(
+  //                 usernameHolder: usernameController.text,
+  //                 passwordHolder: passwordController.text,
+  //               )));
+  // }
 
   var password = '';
   var username = '';
@@ -74,12 +84,20 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  String getUsername() {
+    return usernameController.text;
+  }
+
+  String password2() {
+    return passwordController.text;
+  }
+
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     final HttpLink httpLink = HttpLink(
-      'http://192.168.1.17:5000/graphql',
+      'http://192.168.1.17:5000/',
     );
     String token = '';
     ValueNotifier<GraphQLClient> client = ValueNotifier(GraphQLClient(
@@ -109,7 +127,8 @@ class _LoginPageState extends State<LoginPage> {
               username = value!;
             },
             validator: (value) {
-              return validatePhoneNo(usernameController.text);
+              return validateEmail(usernameController.text);
+              //: validatePassword(usernameController.text);
             },
           ),
           SizedBox(
@@ -165,7 +184,6 @@ class _LoginPageState extends State<LoginPage> {
                       builder: (QueryResult result,
                           {VoidCallback? refetch, FetchMore? fetchMore}) {
                         if (result.hasException) {
-                          Get.back();
                           return Text(result.exception.toString());
                         }
 
@@ -176,9 +194,61 @@ class _LoginPageState extends State<LoginPage> {
                         token = result.data?['login']['token'];
                         print(token);
 
-                        return Sample(
-                          token: token,
+                        return CircularCountDownTimer(
+                          duration: 2,
+                          initialDuration: 0,
+                          controller: CountDownController(),
+                          width: MediaQuery.of(context).size.width / 2,
+                          height: MediaQuery.of(context).size.height / 2,
+                          ringColor: Colors.grey,
+                          ringGradient: null,
+                          fillColor: Colors.purpleAccent,
+                          fillGradient: null,
+                          backgroundColor: Colors.purple[500],
+                          backgroundGradient: null,
+                          strokeWidth: 20.0,
+                          strokeCap: StrokeCap.round,
+                          textStyle: TextStyle(
+                              fontSize: 33.0,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                          textFormat: CountdownTextFormat.S,
+                          isReverse: false,
+                          isReverseAnimation: false,
+                          isTimerTextShown: true,
+                          autoStart: false,
+                          onStart: () {
+                            print('Countdown Started');
+                          },
+                          onComplete: () {
+                            Get.to(Sample(token: token));
+                          },
                         );
+
+                        // Column(
+                        //   children: [
+                        //     Text(result.data != null
+                        //         ? ''
+                        //         : 'there is an error'),
+                        //     Text(
+                        //       'Succesfully Logged in',
+                        //       style: TextStyle(fontSize: 20),
+                        //     ),
+                        //     MaterialButton(
+                        //       onPressed: () {
+                        //         if (result.data != null) {
+                        //           Navigator.push(
+                        //               context,
+                        //               MaterialPageRoute(
+                        //                   builder: (context) => Sample(
+                        //                         token: token,
+                        //                       )));
+                        //         }
+                        //       },
+                        //       child: Text('Go to HomePage'),
+                        //     )
+                        //   ],
+                        // );
                       });
                 } else {
                   checkLogin();
